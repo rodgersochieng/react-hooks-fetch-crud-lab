@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionItem from "./QuestionItem";
 
 function QuestionList() {
@@ -8,7 +6,7 @@ function QuestionList() {
 
   useEffect(() => {
     fetch("http://localhost:4000/questions")
-      .then((res) => res.json())
+      .then((r) => r.json())
       .then((questions) => {
         setQuestions(questions);
       });
@@ -21,13 +19,12 @@ function QuestionList() {
       .then((r) => r.json())
       .then(() => {
         const updatedQuestions = questions.filter((q) => q.id !== id);
-
         setQuestions(updatedQuestions);
       });
   }
 
   function handleAnswerChange(id, correctIndex) {
-    fetch(`http://localhost:4000/questions/$[id]`, {
+    fetch(`http://localhost:4000/questions/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +49,7 @@ function QuestionList() {
       onAnswerChange={handleAnswerChange}
     />
   ));
+
   return (
     <section>
       <h1>Quiz Questions</h1>
